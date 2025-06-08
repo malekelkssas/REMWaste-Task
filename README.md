@@ -60,3 +60,56 @@ The project uses a sophisticated color system with both light and dark themes:
 ### Additional Features
 - **Dark Mode**: Full dark mode support with carefully selected color palettes for both light and dark themes
 - **Responsive Design**: Mobile-first approach with responsive breakpoints
+
+### Image Handling
+After inspecting the original page that is being redesigned, I discovered the image URL pattern and implemented a consistent approach:
+
+- **Base URL**: `https://yozbrydxdlcxghkphhtq.supabase.co/storage/v1/object/public/skips/skip-sizes`
+- **Image Pattern**: `/{size}-yarder-skip.jpg`
+- **Example**: `https://yozbrydxdlcxghkphhtq.supabase.co/storage/v1/object/public/skips/skip-sizes/4-yarder-skip.jpg`
+
+Example implementation:
+```typescript
+// src/utils/image/create-image-link.ts
+export const createImageLink = (size: number) => {
+    return import.meta.env.VITE_IMAGES_BASE_URL + `/${size}` + "-yarder-skip.jpg";
+};
+```
+
+### Performance Optimization
+The application implements lazy loading for images to improve performance:
+
+```typescript
+// src/components/SkipCard.tsx
+<img
+    src={createImageLink(skipItem.size)}
+    alt={`${skipItem.size} skip`}
+    className="w-full h-48 object-cover"
+    loading="lazy"
+/>
+```
+
+### Data Types
+Through careful analysis of the API response data, I've defined comprehensive TypeScript types to ensure type safety and better development experience. The main skip item type is defined as:
+
+```typescript
+// src/types/skip-item.type.ts
+export type SkipItem = {
+    id: number;
+    size: number;
+    hire_period_days: number;
+    transport_cost: number | null;
+    per_tonne_cost: number | null;
+    price_before_vat: number;
+    vat: number;
+    postcode: string;
+    area: string;
+    forbidden: boolean;
+    created_at: string;
+    updated_at: string;
+    allowed_on_road: boolean;
+    allows_heavy_waste: boolean;
+};
+```
+
+This type definition was derived from analyzing the API response structure, ensuring all fields are properly typed and documented.
