@@ -25,6 +25,33 @@ This is a redesign of the skip selection page for the REMWaste task.
   - Dark mode support
   - Consistent styling across components
 
+## Project Structure
+```
+src/
+├── api/                    # API integration
+│   ├── axiosConfig.ts     # Axios instance configuration
+│   └── services/          # API services
+│       └── skipItems.service.ts
+├── components/            # React components
+│   ├── ui/               # Shadcn UI components
+│   ├── SkipCard.tsx      # Skip item card component
+│   ├── SkipSelectionDisclaimer.tsx  # Skip selection disclaimer component
+│   ├── SkipSelectionFooter.tsx  # Skip selection footer component
+│   ├── SkipSelectionHeader.tsx  # Skip selection header component
+│   ├── ProgressSteps.tsx  # Progress steps component
+│   └── SkipSelectionLoader.tsx  # Loading state component
+├── pages/                # Page components
+│   └── SkipSelection.tsx # Main skip selection page
+├── types/                # TypeScript type definitions
+│   └── skip-item.type.ts
+├── utils/                # Utility functions
+│   └── image/           # Image handling utilities
+│       └── create-image-link.ts
+├── App.tsx              # Root component
+├── index.css            # Global styles
+└── main.tsx            # Application entry point
+```
+
 ## Design System
 
 The project implements a comprehensive design system with:
@@ -108,6 +135,41 @@ useEffect(() => {
 ```
 
 This approach prevents the jarring effect of content appearing too quickly and provides users with visual feedback that their request is being processed.
+
+### API Integration
+The application uses Axios for API integration with a simple configuration:
+
+```typescript
+// src/api/axiosConfig.ts
+import axios from "axios";
+
+const axiosConfig = axios.create({
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
+export default axiosConfig;
+```
+
+The skip items service is implemented with a basic structure:
+
+```typescript
+// src/api/services/skipItems.service.ts
+import { SkipItem } from "@/types";
+import axiosConfig from "../axiosConfig";
+
+const SKIP_ITEMS_URL = "/skips";
+export class SkipItemsService {
+    static async getSkipItems(): Promise<SkipItem[]> {
+        const response = await axiosConfig.get(`${SKIP_ITEMS_URL}/by-location?postcode=NR32&area=Lowestoft`);
+        return response.data;
+    }
+}
+```
+
+Note: In a production environment, the service would typically be more generalized with parameters for postcode and area, but since this application/task only uses a single endpoint with fixed parameters, the implementation is kept simple.
 
 ### Data Types
 Through careful analysis of the API response data, I've defined comprehensive TypeScript types to ensure type safety and better development experience. The main skip item type is defined as:
