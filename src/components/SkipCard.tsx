@@ -48,8 +48,8 @@ const SkipCard = ({
 
                 <div className="p-4 space-y-3">
                     <div>
-                        <h3 className="text-lg font-semibold text-foreground">{skipItem.size}</h3>
-                        <p className="text-sm text-muted-foreground">{skipItem.hire_period_days} Days</p>
+                        <h3 className="text-lg font-semibold text-foreground">{skipItem.size} Yard Skip</h3>
+                        <p className="text-sm text-muted-foreground">{skipItem.hire_period_days} day hire period</p>
                     </div>
 
                     <div className="text-2xl font-bold text-blue-600">

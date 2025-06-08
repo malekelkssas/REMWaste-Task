@@ -89,6 +89,26 @@ The application implements lazy loading for images to improve performance:
 />
 ```
 
+### Loading State & User Experience
+To enhance the user experience during data fetching, the application implements a sophisticated loading state:
+
+1. **Loading Component**: A custom `SkipSelectionLoader` component that mimics the layout of the actual content, providing a smooth transition between loading and loaded states.
+
+2. **Intentional Delay**: Since the API response is cached and returns very quickly, a small delay (2 seconds) is added to ensure users can perceive the loading state and provide a more natural experience:
+
+```typescript
+// src/pages/SkipSelection.tsx
+useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+}, []);
+```
+
+This approach prevents the jarring effect of content appearing too quickly and provides users with visual feedback that their request is being processed.
+
 ### Data Types
 Through careful analysis of the API response data, I've defined comprehensive TypeScript types to ensure type safety and better development experience. The main skip item type is defined as:
 

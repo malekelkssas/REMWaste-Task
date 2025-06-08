@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProgressSteps from "@/components/ProgressSteps";
 import SkipCard from "@/components/SkipCard";
 import { SkipItem } from "@/types";
 import SkipSelectionFooter from "@/components/SkipSelectionFooter";
 import SkipSelectionDisclaimer from "@/components/SkipSelectionDisclaimer";
 import SkipSelectionHeader from "@/components/SkipSelectionHeader";
+import SkipSelectionLoader from "@/components/SkipSelectionLoader";
 
 const SkipSelection = () => {
   const [selectedSkip, setSelectedSkip] = useState<number>(17933);
+  const [isLoading, setIsLoading] = useState(true);
 
   const skipOptions: SkipItem[] = [
     {
@@ -158,29 +160,44 @@ const SkipSelection = () => {
 
   const selectedSkipData = skipOptions.find(skip => skip.id === selectedSkip);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <ProgressSteps />
-      
+
       <div className="max-w-6xl mx-auto px-4 py-8">
         <SkipSelectionHeader />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {skipOptions.map((skip) => (
-            <SkipCard
-              key={skip.id}
-              skipItem={skip}
-              isSelected={selectedSkip === skip.id}
-              onSelect={() => setSelectedSkip(skip.id)}
+        {isLoading ? (
+          <SkipSelectionLoader />
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {skipOptions.map((skip) => (
+                <SkipCard
+                  key={skip.id}
+                  skipItem={skip}
+                  isSelected={selectedSkip === skip.id}
+                  onSelect={() => setSelectedSkip(skip.id)}
+                />
+              ))}
+            </div>
+            <SkipSelectionFooter
+              selectedSkipData={selectedSkipData}
+              onBack={() => setSelectedSkip(null)}
+              onContinue={() => setSelectedSkip(null)}
             />
-          ))}
-        </div>
+          </>
+        )}
 
-        <SkipSelectionFooter
-          selectedSkipData={selectedSkipData}
-          onBack={() => setSelectedSkip(null)}
-          onContinue={() => setSelectedSkip(null)}
-        />
+
 
         <SkipSelectionDisclaimer />
       </div>
