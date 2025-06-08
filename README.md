@@ -195,3 +195,66 @@ export type SkipItem = {
 ```
 
 This type definition was derived from analyzing the API response structure, ensuring all fields are properly typed and documented.
+
+### State Management
+The application uses React's Context API for managing step navigation state, which is a perfect fit for this use case because:
+
+1. **Simple State Requirements**: The step navigation logic is straightforward and doesn't require complex state management like Redux.
+2. **Component Tree Structure**: The step state is primarily used by closely related components in a parent-child relationship.
+3. **Performance Considerations**: Context is optimized for low-frequency updates like step changes.
+
+#### Step Context Implementation
+```typescript
+// src/context/StepContext.tsx
+export type Step = {
+  id: string;
+  label: string;
+  path: string;
+};
+
+export const STEPS: Step[] = [
+  { id: 'postcode', label: 'Postcode', path: '/postcode' },
+  { id: 'waste-type', label: 'Waste Type', path: '/waste-type' },
+  { id: 'select-skip', label: 'Select Skip', path: '/select-skip' },
+  { id: 'permit-check', label: 'Permit Check', path: '/permit-check' },
+  { id: 'choose-date', label: 'Choose Date', path: '/choose-date' },
+  { id: 'payment', label: 'Payment', path: '/payment' },
+];
+
+interface StepContextType {
+  currentStep: Step;
+  completedSteps: string[];
+  goToNextStep: () => void;
+  goToPreviousStep: () => void;
+  markStepAsCompleted: (stepId: string) => void;
+}
+```
+
+The context provides:
+- Current step tracking
+- Completed steps management
+- Navigation methods (next/previous)
+- Step completion marking
+
+#### Usage in Components
+```typescript
+// Example usage in a component
+const { currentStep, goToNextStep, goToPreviousStep } = useStep();
+```
+
+#### Benefits of Using Context
+1. **Simplified State Management**: No need for complex Redux setup or middleware
+2. **Type Safety**: Full TypeScript support with proper type definitions
+3. **Easy Testing**: Components can be easily tested with mock context values
+4. **Performance**: Optimized for the specific use case of step navigation
+5. **Maintainability**: Centralized step logic makes it easy to modify navigation behavior
+
+#### Why Not Redux?
+While Redux is a powerful state management solution, it would be overkill for this application/task because:
+1. The state updates are infrequent (only during step changes)
+2. The state structure is simple and doesn't require complex reducers
+3. There's no need for middleware or complex side effects
+4. The component tree is relatively shallow
+5. The state is primarily used for navigation between related pages
+
+This approach aligns with React's philosophy of using the simplest solution that meets the requirements, making the code more maintainable and easier to understand.

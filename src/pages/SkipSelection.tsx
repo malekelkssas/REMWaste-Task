@@ -71,8 +71,6 @@ const SkipSelection = () => {
           </>
         )}
 
-
-
         <SkipSelectionDisclaimer />
       </div>
     </div>
