@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 
-const SkipSelectionLoader = () => (
+const SkipGridLoader = () => (
   <>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       {[...Array(9)].map((_, i) => (
@@ -16,19 +16,7 @@ const SkipSelectionLoader = () => (
         </Card>
       ))}
     </div>
-    {/* Footer Skeleton */}
-    <div className="bg-card border rounded-lg p-6 mt-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="h-5 w-64 rounded shimmer" />
-        </div>
-        <div className="flex gap-3">
-          <div className="h-10 w-20 rounded shimmer" />
-          <div className="h-10 w-32 rounded shimmer" />
-        </div>
-      </div>
-    </div>
   </>
 );
 
-export default SkipSelectionLoader; 
+export default SkipGridLoader; 

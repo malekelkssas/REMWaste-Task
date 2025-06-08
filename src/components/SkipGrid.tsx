@@ -12,7 +12,7 @@ interface SkipCardProps {
     onSelect: () => void;
 }
 
-const SkipCard = ({
+const SkipGrid = ({
     skipItem,
     isSelected,
     onSelect,
@@ -20,26 +20,25 @@ const SkipCard = ({
     return (
         <Card
             className={cn(
-                "relative overflow-hidden transition-all duration-200 cursor-pointer hover:shadow-lg",
+                "group relative overflow-hidden transition-all duration-300 hover:shadow-xl",
                 isSelected
-                    ? "ring-2 ring-blue-600 shadow-lg"
-                    : "hover:shadow-md"
+                    ? "ring-2 ring-blue-600 shadow-lg scale-[1.02]"
+                    : "hover:scale-[1.02] hover:shadow-lg"
             )}
-            onClick={onSelect}
         >
             <CardContent className="p-0">
                 <div className="relative">
                     <img
                         src={createImageLink(skipItem.size)}
                         alt={`${skipItem.size} skip`}
-                        className="w-full h-48 object-cover"
+                        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                     />
-                    <Badge className="absolute top-3 right-3 bg-blue-600 hover:bg-blue-700">
+                    <Badge className="absolute top-3 right-3 bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
                         {skipItem.size} Yards
                     </Badge>
                     {skipItem.allowed_on_road && (
-                        <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-orange-500 text-white px-2 py-1 rounded text-xs font-medium">
+                        <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-orange-500 text-white px-2 py-1 rounded text-xs font-medium transition-opacity duration-200 group-hover:opacity-90">
                             <AlertTriangle className="w-3 h-3" />
                             Not Allowed On The Road
                         </div>
@@ -48,7 +47,9 @@ const SkipCard = ({
 
                 <div className="p-4 space-y-3">
                     <div>
-                        <h3 className="text-lg font-semibold text-foreground">{skipItem.size} Yard Skip</h3>
+                        <h3 className="text-lg font-semibold text-foreground transition-colors duration-200 group-hover:text-blue-600">
+                            {skipItem.size} Yard Skip
+                        </h3>
                         <p className="text-sm text-muted-foreground">{skipItem.hire_period_days} day hire period</p>
                     </div>
 
@@ -58,10 +59,10 @@ const SkipCard = ({
 
                     <Button
                         className={cn(
-                            "w-full transition-colors",
+                            "w-full transition-all duration-200 cursor-pointer",
                             isSelected
-                                ? "bg-blue-600 hover:bg-blue-700"
-                                : "bg-secondary hover:bg-secondary/80 text-secondary-foreground"
+                                ? "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg"
+                                : "bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 hover:text-blue-800 shadow-sm hover:shadow-md"
                         )}
                         onClick={onSelect}
                     >
@@ -73,4 +74,4 @@ const SkipCard = ({
     );
 };
 
-export default SkipCard;
+export default SkipGrid;

@@ -40,6 +40,8 @@ src/
 │   ├── SkipSelectionHeader.tsx  # Skip selection header component
 │   ├── ProgressSteps.tsx  # Progress steps component
 │   └── SkipSelectionLoader.tsx  # Loading state component
+├── context/              # React Context providers
+│   └── StepContext.tsx   # Step navigation context
 ├── pages/                # Page components
 │   └── SkipSelection.tsx # Main skip selection page
 ├── types/                # TypeScript type definitions
