@@ -7,12 +7,12 @@ export type Step = {
 };
 
 export const STEPS: Step[] = [
-  { id: 'postcode', label: 'Postcode', path: '/prev' },
-  { id: 'waste-type', label: 'Waste Type', path: '/prev' },
+  { id: 'postcode', label: 'Postcode', path: '/postcode' },
+  { id: 'waste-type', label: 'Waste Type', path: '/waste-type' },
   { id: 'select-skip', label: 'Select Skip', path: '/' },
-  { id: 'permit-check', label: 'Permit Check', path: '/next' },
-  { id: 'choose-date', label: 'Choose Date', path: '/next' },
-  { id: 'payment', label: 'Payment', path: '/next' },
+  { id: 'permit-check', label: 'Permit Check', path: '/permit-check' },
+  { id: 'choose-date', label: 'Choose Date', path: '/choose-date' },
+  { id: 'payment', label: 'Payment', path: '/payment' },
 ];
 
 interface StepContextType {

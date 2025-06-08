@@ -62,7 +62,7 @@ const SkipGrid = ({
                             "w-full transition-all duration-200 cursor-pointer",
                             isSelected
                                 ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg ring-2 ring-blue-600 ring-offset-2"
-                                : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border shadow-sm hover:shadow-md"
+                                : "bg-background text-blue-600 hover:bg-blue-600/10 border border-blue-200 shadow-sm hover:shadow-md hover:border-blue-300"
                         )}
                         onClick={onSelect}
                     >
