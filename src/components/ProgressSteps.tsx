@@ -16,7 +16,7 @@ const ProgressSteps = () => {
   };
 
   return (
-    <div className="bg-white border-b shadow-sm">
+    <div className="bg-background border-b shadow-sm">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
         {/* Mobile Progress Indicator */}
         <div className="block sm:hidden">
@@ -30,7 +30,7 @@ const ProgressSteps = () => {
             >
               <ChevronLeft className="w-5 h-5" />
             </Button>
-            <span className="text-sm font-medium text-gray-900">
+            <span className="text-sm font-medium text-foreground">
               Step {currentStepIndex + 1} of {totalSteps}
             </span>
             <Button
@@ -45,7 +45,7 @@ const ProgressSteps = () => {
           </div>
           
           {/* Mobile Progress Bar */}
-          <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+          <div className="w-full bg-muted rounded-full h-2 mb-4">
             <div
               className="bg-blue-600 h-2 rounded-full transition-all duration-300"
               style={{
@@ -56,14 +56,14 @@ const ProgressSteps = () => {
           
           {/* Mobile Current Step Display */}
           <div className="text-center">
-            <div className="w-10 h-10 mx-auto flex items-center justify-center rounded-full border-2 bg-white border-blue-600 text-blue-600 shadow-lg mb-2">
+            <div className="w-10 h-10 mx-auto flex items-center justify-center rounded-full border-2 bg-background border-blue-600 text-blue-600 shadow-lg mb-2">
               {completedSteps.includes(currentStep.id) ? (
                 <Check className="w-5 h-5" />
               ) : (
                 <span className="text-sm font-semibold">{currentStepIndex + 1}</span>
               )}
             </div>
-            <span className="text-sm font-medium text-gray-900">
+            <span className="text-sm font-medium text-foreground">
               {currentStep.label}
             </span>
           </div>
@@ -74,7 +74,7 @@ const ProgressSteps = () => {
           <div className="relative flex items-center justify-between">
             {/* Progress Bar Background */}
             <div
-              className="absolute top-4 left-0 right-0 h-1 bg-gray-200"
+              className="absolute top-4 left-0 right-0 h-1 bg-muted"
               style={{
                 left: '2rem',
                 right: '2rem',
@@ -86,7 +86,7 @@ const ProgressSteps = () => {
                 className="absolute top-4 h-1 bg-blue-600 transition-all duration-300"
                 style={{
                   left: '2rem',
-                  width: `calc(${(completedSteps.length / (totalSteps - 1)) * 100}%)`,
+                  width: `calc(${(completedSteps.length / (totalSteps - 1)) * 100}% - 1.7rem)`,
                 }}
               />
             )}
@@ -104,12 +104,12 @@ const ProgressSteps = () => {
                 >
                   <div
                     className={cn(
-                      "w-8 h-8 flex items-center justify-center rounded-full border-2 text-sm font-medium mb-2 z-10 bg-white transition-all duration-200",
+                      "w-8 h-8 flex items-center justify-center rounded-full border-2 text-sm font-medium mb-2 z-10 bg-background transition-all duration-200",
                       completedSteps.includes(step.id)
                         ? "border-blue-600 bg-blue-600 text-white"
                         : step.id === currentStep.id
                         ? "border-blue-600 text-blue-600 shadow-lg"
-                        : "border-gray-300 text-gray-400",
+                        : "border-muted text-muted-foreground",
                       isClickable && "hover:scale-110"
                     )}
                   >
@@ -118,8 +118,8 @@ const ProgressSteps = () => {
                   <span
                     className={cn(
                       "text-xs font-medium text-center whitespace-nowrap transition-colors duration-200",
-                      step.id === currentStep.id ? "text-gray-900" : "text-gray-500",
-                      isClickable && "hover:text-gray-900"
+                      step.id === currentStep.id ? "text-foreground" : "text-muted-foreground",
+                      isClickable && "hover:text-foreground"
                     )}
                   >
                     {step.label}

@@ -11,7 +11,7 @@ import SkipListLoader from "@/components/SkipListLoader";
 import { SkipItemsService } from "@/api/services";
 import { LayoutList, LayoutGrid } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import ThemeSwitch from "@/components/ThemeSwitch";
 
 const VIEW_PREFERENCE_KEY = "skip-view-preference";
 
@@ -64,7 +64,7 @@ const SkipSelection = () => {
     <div className="min-h-screen bg-background">
       <ProgressSteps />
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-8 pb-28">
         <SkipSelectionHeader />
 
         {isLoading ? (
@@ -81,34 +81,28 @@ const SkipSelection = () => {
           </>
         ) : (
           <>
-            <div className="flex justify-end mb-4">
+            <div className="flex justify-end mb-4 gap-2">
+              <ThemeSwitch />
               <div className="hidden md:flex items-center gap-2 bg-secondary p-1 rounded-lg">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className={cn(
-                    "h-8 px-2 cursor-pointer transition-all duration-200",
-                    !isGrid 
-                      ? "bg-background shadow-sm text-blue-600" 
-                      : "hover:bg-background/50 hover:text-blue-600"
-                  )}
-                  onClick={changeView}
-                >
-                  <LayoutList className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className={cn(
-                    "h-8 px-2 cursor-pointer transition-all duration-200",
-                    isGrid 
-                      ? "bg-background shadow-sm text-blue-600" 
-                      : "hover:bg-background/50 hover:text-blue-600"
-                  )}
-                  onClick={changeView}
-                >
-                  <LayoutGrid className="h-4 w-4" />
-                </Button>
+                {!isGrid ? (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 px-2 cursor-pointer transition-all duration-200 bg-background shadow-sm text-blue-600"
+                    onClick={changeView}
+                  >
+                    <LayoutList className="h-4 w-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 px-2 cursor-pointer transition-all duration-200 bg-background shadow-sm text-blue-600"
+                    onClick={changeView}
+                  >
+                    <LayoutGrid className="h-4 w-4" />
+                  </Button>
+                )}
               </div>
             </div>
 

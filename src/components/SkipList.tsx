@@ -69,8 +69,8 @@ const SkipList = ({
                             className={cn(
                                 "w-full transition-all duration-200 cursor-pointer",
                                 isSelected
-                                    ? "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg"
-                                    : "bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 hover:text-blue-800 shadow-sm hover:shadow-md"
+                                    ? "bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg ring-2 ring-blue-600 ring-offset-2"
+                                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border shadow-sm hover:shadow-md"
                             )}
                             onClick={onSelect}
                         >
