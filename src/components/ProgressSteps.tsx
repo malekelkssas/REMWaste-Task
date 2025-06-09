@@ -1,4 +1,4 @@
-import { Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useStep, STEPS } from "@/context/StepContext";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,20 @@ const ProgressSteps = ({ hasSelectedSkip = false }: ProgressStepsProps) => {
   return (
     <div className="bg-background border-b shadow-sm">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+        {/* Back Button for Desktop */}
+        <div className="hidden md:block mb-6">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={goToPreviousStep}
+            disabled={currentStepIndex === 0}
+            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors cursor-pointer group"
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+            <span className="underline-offset-4 group-hover:underline">Back to {currentStepIndex > 0 ? STEPS[currentStepIndex - 1].label : 'Previous'}</span>
+          </Button>
+        </div>
+
         {/* Mobile Progress Indicator */}
         <div className="block sm:hidden">
           <div className="flex items-center justify-between mb-4">
