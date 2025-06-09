@@ -46,7 +46,7 @@ yarn install
    - Use the exact environment variables from `.env.example`:
      ```
      VITE_IMAGES_BASE_URL=https://yozbrydxdlcxghkphhtq.supabase.co/storage/v1/object/public/skips/skip-sizes
-VITE_API_BASE_URL=https://app.wewantwaste.co.uk/api
+     VITE_API_BASE_URL=https://app.wewantwaste.co.uk/api
      ```
 
 4. Start the development server:
