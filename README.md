@@ -25,6 +25,45 @@ This is a redesign of the skip selection page for the REMWaste task.
   - Dark mode support
   - Consistent styling across components
 
+## Project Setup and Running
+
+### Prerequisites
+- Node.js version 20.x (required for the latest dependencies)
+- npm or yarn package manager
+
+### Installation Steps
+
+1. Clone the repository
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Environment Setup:
+   - Copy `.env.example` to `.env`
+   - Use the exact environment variables from `.env.example`:
+     ```
+     VITE_IMAGES_BASE_URL=https://yozbrydxdlcxghkphhtq.supabase.co/storage/v1/object/public/skips/skip-sizes
+VITE_API_BASE_URL=https://app.wewantwaste.co.uk/api
+     ```
+
+4. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+The application will be available at `http://localhost:8080` by default.
+
+### Available Scripts
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
+- `npm run preview` - Preview production build
+
 ## Project Structure
 ```
 src/
@@ -87,7 +126,7 @@ The project uses a sophisticated color system with both light and dark themes:
 
 
 ### Additional Features
-- **Dark Mode**: Full dark mode support with carefully selected color palettes for both light and dark themes
+- **Dark Mode**: While implemented for demonstration purposes, the dark mode feature is overkill for this specific task. In a real-world scenario, theme implementation would typically be handled at the application level rather than individual pages, as it's a global concern that affects the entire user experience. For this task, a single theme would have been sufficient.
 - **Responsive Design**: Mobile-first approach with responsive breakpoints
 
 ### Image Handling
@@ -171,7 +210,19 @@ export class SkipItemsService {
 }
 ```
 
-Note: In a production environment, the service would typically be more generalized with parameters for postcode and area, but since this application/task only uses a single endpoint with fixed parameters, the implementation is kept simple.
+Note: In a real-world scenario, the service would typically be more generalized with parameters for postcode and area, but since this task only uses a single endpoint with fixed parameters, the implementation is kept simple.
+
+### Potential Enhancements
+
+#### Data Loading and Pagination
+For larger datasets, this page could be enhanced with pagination or infinite scroll to improve user experience. This would involve:
+
+1. **API Support**: The backend would need to support pagination parameters (e.g., `page`, `limit`, `offset`)
+2. **Data Chunking**: Loading data in smaller chunks to improve initial load time
+3. **Infinite Scroll**: Implementing infinite scroll for a smoother user experience
+4. **Virtualization**: Using virtual lists for better performance with large datasets
+
+Since the current API doesn't support pagination and the dataset is relatively small for this task, these optimizations are not implemented. These features would be valuable additions for handling larger datasets in the future.
 
 ### Data Types
 Through careful analysis of the API response data, I've defined comprehensive TypeScript types to ensure type safety and better development experience. The main skip item type is defined as:
