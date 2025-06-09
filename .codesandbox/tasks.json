@@ -15,10 +15,10 @@
   "tasks": {
     "dev": {
       "name": "dev",
-      "command": "npm run dev -- --port 2222",
+      "command": "npm run dev -- --port 2223",
       "runAtStart": true,
       "preview": {
-        "port": 2222
+        "port": 2223
       }
     },
     "build": {
