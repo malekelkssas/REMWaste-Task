@@ -159,22 +159,19 @@ The application implements lazy loading for images to improve performance:
 ### Loading State & User Experience
 To enhance the user experience during data fetching, the application implements a sophisticated loading state:
 
-1. **Loading Component**: A custom `SkipSelectionLoader` component that mimics the layout of the actual content, providing a smooth transition between loading and loaded states.
+1. **Loading Components**: 
+   - `SkipGridLoader`: A grid-based loading skeleton that mimics the grid view layout
+   - `SkipListLoader`: A list-based loading skeleton that mimics the list view layout
+   - Both components use shimmer effects to indicate loading state
 
-2. **Intentional Delay**: Since the API response is cached and returns very quickly, a small delay (2 seconds) is added to ensure users can perceive the loading state and provide a more natural experience:
+2. **View Switching**: The application supports both grid and list views, allowing users to switch between:
+   - Grid View: A card-based layout showing skip items in a responsive grid
+   - List View: A detailed list layout showing skip items in a vertical arrangement
+   - Users can toggle between these views based on their preference
 
-```typescript
-// src/pages/SkipSelection.tsx
-useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+3. **Intentional Delay**: Since the API response is cached and returns very quickly, a small delay (2 seconds) is added to ensure users can perceive the loading state. This delay is implemented only for demonstration purposes in this task to showcase the loading components. In a real-world scenario, this artificial delay would be removed.
 
-    return () => clearTimeout(timer);
-}, []);
-```
-
-This approach prevents the jarring effect of content appearing too quickly and provides users with visual feedback that their request is being processed.
+This approach provides users with visual feedback that their request is being processed while maintaining a smooth transition between loading and loaded states.
 
 ### API Integration
 The application uses Axios for API integration with a simple configuration:
