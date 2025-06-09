@@ -48,7 +48,7 @@ export const StepProvider = ({ children }: { children: ReactNode }) => {
       setCurrentStepIndex(newStepIndex);
       setCompletedSteps(completedSteps.filter(stepId => {
         const stepIndex = STEPS.findIndex(step => step.id === stepId);
-        return stepIndex <= newStepIndex;
+        return stepIndex < newStepIndex;
       }));
     }
   };
