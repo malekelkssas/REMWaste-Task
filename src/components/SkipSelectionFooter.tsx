@@ -9,20 +9,20 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface SkipSelectionFooterProps {
   selectedSkipData?: SkipItem;
-  onBack: () => void;
+  onCancel: () => void;
   onContinue: () => void;
 }
 
 const SkipSelectionFooter = ({
   selectedSkipData,
-  onBack,
+  onCancel,
   onContinue,
 }: SkipSelectionFooterProps) => {
   const { goToPreviousStep, goToNextStep, markStepAsCompleted } = useStep();
   const { theme } = useTheme();
 
-  const handleBack = () => {
-    onBack();
+  const handleCancel = () => {
+    onCancel();
     goToPreviousStep();
   };
 
@@ -57,10 +57,10 @@ const SkipSelectionFooter = ({
                   <div className="flex gap-3 w-full md:w-auto">
                     <Button 
                       variant="outline" 
-                      onClick={handleBack}
+                      onClick={handleCancel}
                       className="flex-1 md:flex-none cursor-pointer hover:bg-secondary transition-colors duration-200 min-w-[120px]"
                     >
-                      Back
+                      Cancel
                     </Button>
                     <Button 
                       className={cn(
