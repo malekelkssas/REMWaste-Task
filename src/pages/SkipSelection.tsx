@@ -21,7 +21,7 @@ const SkipSelection = () => {
     const savedPreference = localStorage.getItem(VIEW_PREFERENCE_KEY);
     return savedPreference ? JSON.parse(savedPreference) : false;
   });
-  const { goToNextStep, goToPreviousStep } = useStep();
+  const { goToNextStep } = useStep();
   // Save view preference to localStorage when it changes
   useEffect(() => {
     localStorage.setItem(VIEW_PREFERENCE_KEY, JSON.stringify(isGrid));

@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { SkipItem } from "@/types";
-import { useStep } from "@/context/StepContext";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTheme } from "next-themes";
@@ -18,18 +17,14 @@ const SkipSelectionFooter = ({
   onCancel,
   onContinue,
 }: SkipSelectionFooterProps) => {
-  const { goToPreviousStep, goToNextStep, markStepAsCompleted } = useStep();
   const { theme } = useTheme();
 
   const handleCancel = () => {
     onCancel();
-    goToPreviousStep();
   };
 
   const handleContinue = () => {
     onContinue();
-    markStepAsCompleted('select-skip');
-    goToNextStep();
   };
 
   return (
