@@ -102,28 +102,27 @@ The project uses a sophisticated color system with both light and dark themes:
 
 #### 🎨 Light Theme Colors
 
-| Name        | HSL                      | Preview |
-|-------------|--------------------------|---------|
-| Primary     | `hsl(222.2, 47.4%, 11.2%)` | <span style="display:inline-block;width:20px;height:20px;background:hsl(222.2, 47.4%, 11.2%);border-radius:4px;"></span> |
-| Secondary   | `hsl(210, 40%, 96.1%)`     | <span style="display:inline-block;width:20px;height:20px;background:hsl(210, 40%, 96.1%);border-radius:4px;border:1px solid #ccc;"></span> |
-| Accent      | `hsl(210, 40%, 96.1%)`     | <span style="display:inline-block;width:20px;height:20px;background:hsl(210, 40%, 96.1%);border-radius:4px;border:1px solid #ccc;"></span> |
-| Background  | `hsl(0, 0%, 100%)`         | <span style="display:inline-block;width:20px;height:20px;background:hsl(0, 0%, 100%);border-radius:4px;border:1px solid #ccc;"></span> |
-| Foreground  | `hsl(222.2, 84%, 4.9%)`    | <span style="display:inline-block;width:20px;height:20px;background:hsl(222.2, 84%, 4.9%);border-radius:4px;"></span> |
-| Muted       | `hsl(210, 40%, 96.1%)`     | <span style="display:inline-block;width:20px;height:20px;background:hsl(210, 40%, 96.1%);border-radius:4px;border:1px solid #ccc;"></span> |
-| Destructive | `hsl(0, 84.2%, 60.2%)`     | <span style="display:inline-block;width:20px;height:20px;background:hsl(0, 84.2%, 60.2%);border-radius:4px;"></span> |
+| Name        | HEX       | HSL                      | Preview |
+|-------------|-----------|--------------------------|---------|
+| Primary     | `#1c1c1e` | `hsl(222.2, 47.4%, 11.2%)` | ⬛ |
+| Secondary   | `#f1f5f9` | `hsl(210, 40%, 96.1%)`     | ⬜ |
+| Accent      | `#f1f5f9` | `hsl(210, 40%, 96.1%)`     | ⬜ |
+| Background  | `#ffffff` | `hsl(0, 0%, 100%)`         | ⬜ |
+| Foreground  | `#0c0a09` | `hsl(222.2, 84%, 4.9%)`    | ⬛ |
+| Muted       | `#f1f5f9` | `hsl(210, 40%, 96.1%)`     | ⬜ |
+| Destructive | `#ef4444` | `hsl(0, 84.2%, 60.2%)`     | 🟥 |
 
 #### 🌙 Dark Theme Colors
 
-| Name        | HSL                      | Preview |
-|-------------|--------------------------|---------|
-| Primary     | `hsl(210, 40%, 98%)`       | <span style="display:inline-block;width:20px;height:20px;background:hsl(210, 40%, 98%);border-radius:4px;border:1px solid #ccc;"></span> |
-| Secondary   | `hsl(217.2, 32.6%, 17.5%)` | <span style="display:inline-block;width:20px;height:20px;background:hsl(217.2, 32.6%, 17.5%);border-radius:4px;"></span> |
-| Accent      | `hsl(217.2, 32.6%, 17.5%)` | <span style="display:inline-block;width:20px;height:20px;background:hsl(217.2, 32.6%, 17.5%);border-radius:4px;"></span> |
-| Background  | `hsl(222.2, 84%, 4.9%)`    | <span style="display:inline-block;width:20px;height:20px;background:hsl(222.2, 84%, 4.9%);border-radius:4px;"></span> |
-| Foreground  | `hsl(210, 40%, 98%)`       | <span style="display:inline-block;width:20px;height:20px;background:hsl(210, 40%, 98%);border-radius:4px;border:1px solid #ccc;"></span> |
-| Muted       | `hsl(217.2, 32.6%, 17.5%)` | <span style="display:inline-block;width:20px;height:20px;background:hsl(217.2, 32.6%, 17.5%);border-radius:4px;"></span> |
-| Destructive | `hsl(0, 62.8%, 30.6%)`     | <span style="display:inline-block;width:20px;height:20px;background:hsl(0, 62.8%, 30.6%);border-radius:4px;"></span> |
-
+| Name        | HEX       | HSL                      | Preview |
+|-------------|-----------|--------------------------|---------|
+| Primary     | `#fafafa` | `hsl(210, 40%, 98%)`       | ⬜ |
+| Secondary   | `#262626` | `hsl(217.2, 32.6%, 17.5%)` | ⬛ |
+| Accent      | `#262626` | `hsl(217.2, 32.6%, 17.5%)` | ⬛ |
+| Background  | `#0c0a09` | `hsl(222.2, 84%, 4.9%)`    | ⬛ |
+| Foreground  | `#fafafa` | `hsl(210, 40%, 98%)`       | ⬜ |
+| Muted       | `#262626` | `hsl(217.2, 32.6%, 17.5%)` | ⬛ |
+| Destructive | `#7f1d1d` | `hsl(0, 62.8%, 30.6%)`     | 🟫 |
 
 ### Additional Features
 - **Dark Mode**: While implemented for demonstration purposes, the dark mode feature is overkill for this specific task. In a real-world scenario, theme implementation would typically be handled at the application level rather than individual pages, as it's a global concern that affects the entire user experience. For this task, a single theme would have been sufficient.
