@@ -9,9 +9,7 @@ import SkipSelectionHeader from "@/components/SkipSelectionHeader";
 import SkipGridLoader from "@/components/SkipGridLoader";
 import SkipListLoader from "@/components/SkipListLoader";
 import { SkipItemsService } from "@/api/services";
-import { LayoutList, LayoutGrid } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import ThemeSwitch from "@/components/ThemeSwitch";
+import { useStep } from "@/context/StepContext";
 
 const VIEW_PREFERENCE_KEY = "skip-view-preference";
 
@@ -23,7 +21,7 @@ const SkipSelection = () => {
     const savedPreference = localStorage.getItem(VIEW_PREFERENCE_KEY);
     return savedPreference ? JSON.parse(savedPreference) : false;
   });
-
+  const { goToNextStep, goToPreviousStep } = useStep();
   // Save view preference to localStorage when it changes
   useEffect(() => {
     localStorage.setItem(VIEW_PREFERENCE_KEY, JSON.stringify(isGrid));
@@ -62,50 +60,38 @@ const SkipSelection = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <ProgressSteps />
+      <ProgressSteps hasSelectedSkip={!!selectedSkip} />
 
       <div className="max-w-6xl mx-auto px-4 py-8 pb-28">
-        <SkipSelectionHeader />
+        <SkipSelectionHeader
+          isGrid={isGrid}
+          changeView={changeView}
+        />
 
         {isLoading ? (
           <>
             {isGrid ? (
-              <div className="hidden md:block">
-                <SkipGridLoader />
-            </div>
+              <>
+                <div className="hidden md:block">
+                  <SkipGridLoader />
+                </div>
+                <div className="md:hidden">
+                  <SkipGridLoader />
+                </div>
+              </>
             ) : (
-              <div className="hidden md:block">
-                <SkipListLoader />
-              </div>
+              <>
+                <div className="hidden md:block">
+                  <SkipListLoader />
+                </div>
+                <div className="md:hidden">
+                  <SkipGridLoader />
+                </div>
+              </>
             )}
           </>
         ) : (
           <>
-            <div className="flex justify-end mb-4 gap-2">
-              <ThemeSwitch />
-              <div className="hidden md:flex items-center gap-2 bg-secondary p-1 rounded-lg">
-                {!isGrid ? (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 px-2 cursor-pointer transition-all duration-200 bg-background shadow-sm text-blue-600"
-                    onClick={changeView}
-                  >
-                    <LayoutList className="h-4 w-4" />
-                  </Button>
-                ) : (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 px-2 cursor-pointer transition-all duration-200 bg-background shadow-sm text-blue-600"
-                    onClick={changeView}
-                  >
-                    <LayoutGrid className="h-4 w-4" />
-                  </Button>
-                )}
-              </div>
-            </div>
-
             <div className="hidden md:block">
               {!isGrid ? (
                 <div className="space-y-4 mb-8">
@@ -148,8 +134,14 @@ const SkipSelection = () => {
             {selectedSkip && (
               <SkipSelectionFooter
                 selectedSkipData={selectedSkip}
-                onBack={() => setSelectedSkip(null)}
-                onContinue={() => setSelectedSkip(null)}
+                onCancel={() => {
+                  setSelectedSkip(null);
+                  goToPreviousStep();
+                }}
+                onContinue={() => {
+                  setSelectedSkip(null);
+                  goToNextStep();
+                }}
               />
             )}
           </>

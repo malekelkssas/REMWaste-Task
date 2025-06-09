@@ -2,16 +2,23 @@ import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useStep, STEPS } from "@/context/StepContext";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
+import { THEME_CONSTANTS } from "@/utils/constants";
 
-const ProgressSteps = () => {
-  const { currentStep, completedSteps, goToNextStep, goToPreviousStep } = useStep();
+interface ProgressStepsProps {
+  hasSelectedSkip?: boolean;
+}
+
+const ProgressSteps = ({ hasSelectedSkip = false }: ProgressStepsProps) => {
+  const { currentStep, completedSteps, goToNextStep, goToPreviousStep, goToStep } = useStep();
+  const { theme } = useTheme();
   const currentStepIndex = STEPS.findIndex((step) => step.id === currentStep.id);
   const totalSteps = STEPS.length;
 
   const handleStepClick = (stepIndex: number) => {
     if (stepIndex <= currentStepIndex || completedSteps.includes(STEPS[stepIndex].id)) {
       const targetStep = STEPS[stepIndex];
-      window.location.href = targetStep.path;
+      goToStep(targetStep.id);
     }
   };
 
@@ -37,8 +44,11 @@ const ProgressSteps = () => {
               variant="ghost"
               size="sm"
               onClick={goToNextStep}
-              disabled={currentStepIndex === totalSteps - 1}
-              className="p-0 h-auto"
+              disabled={currentStepIndex === totalSteps - 1 || !hasSelectedSkip}
+              className={cn(
+                "p-0 h-auto",
+                !hasSelectedSkip && "opacity-50 cursor-not-allowed"
+              )}
             >
               <ChevronRight className="w-5 h-5" />
             </Button>
@@ -60,7 +70,7 @@ const ProgressSteps = () => {
               {completedSteps.includes(currentStep.id) ? (
                 <Check className="w-5 h-5" />
               ) : (
-                <span className="text-sm font-semibold">{currentStepIndex + 1}</span>
+                <currentStep.icon className="w-5 h-5" />
               )}
             </div>
             <span className="text-sm font-medium text-foreground">
@@ -72,21 +82,12 @@ const ProgressSteps = () => {
         {/* Desktop/Tablet Full Steps Display */}
         <div className="hidden sm:block">
           <div className="relative flex items-center justify-between">
-            {/* Progress Bar Background */}
-            <div
-              className="absolute top-4 left-0 right-0 h-1 bg-muted"
-              style={{
-                left: '2rem',
-                right: '2rem',
-              }}
-            />
             {/* Progress Bar Foreground */}
             {completedSteps.length > 0 && (
               <div
-                className="absolute top-4 h-1 bg-blue-600 transition-all duration-300"
+                className="absolute top-4 h-1 bg-blue-600 transition-all duration-300 z-0"
                 style={{
-                  left: '2rem',
-                  width: `calc(${(completedSteps.length / (totalSteps - 1)) * 100}% - 1.7rem)`,
+                  width: `${((completedSteps.length + (currentStepIndex === STEPS.findIndex(s => s.id === currentStep.id) ? 0.5 : 0)) / totalSteps) * 100}%`,
                 }}
               />
             )}
@@ -97,23 +98,31 @@ const ProgressSteps = () => {
                 <div
                   key={step.id}
                   className={cn(
-                    "flex flex-col items-center flex-1 min-w-0 transition-all duration-300",
+                    "flex flex-col items-center flex-1 min-w-0 transition-all duration-300 relative z-10",
                     isClickable && "cursor-pointer hover:opacity-80"
                   )}
                   onClick={() => isClickable && handleStepClick(index)}
                 >
                   <div
                     className={cn(
-                      "w-8 h-8 flex items-center justify-center rounded-full border-2 text-sm font-medium mb-2 z-10 bg-background transition-all duration-200",
+                      "w-8 h-8 flex items-center justify-center rounded-full border-2 text-sm font-medium mb-2 transition-all duration-200",
                       completedSteps.includes(step.id)
                         ? "border-blue-600 bg-blue-600 text-white"
                         : step.id === currentStep.id
-                        ? "border-blue-600 text-blue-600 shadow-lg"
-                        : "border-muted text-muted-foreground",
-                      isClickable && "hover:scale-110"
+                        ? "border-blue-600 text-blue-600 shadow-lg bg-background"
+                        : "border-muted text-muted-foreground bg-background",
+                      isClickable && "hover:scale-110",
+                      theme === THEME_CONSTANTS.DARK ? "bg-gray-900" : "bg-white"
                     )}
                   >
-                    {completedSteps.includes(step.id) ? <Check className="w-4 h-4" /> : index + 1}
+                    {completedSteps.includes(step.id) ? (
+                      <Check className={cn(
+                        "w-4 h-4",
+                        theme === THEME_CONSTANTS.DARK ? "text-white" : "text-blue-600"
+                      )} />
+                    ) : (
+                      <step.icon className="w-4 h-4" />
+                    )}
                   </div>
                   <span
                     className={cn(
