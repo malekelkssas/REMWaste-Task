@@ -136,7 +136,6 @@ const SkipSelection = () => {
                 selectedSkipData={selectedSkip}
                 onCancel={() => {
                   setSelectedSkip(null);
-                  goToPreviousStep();
                 }}
                 onContinue={() => {
                   setSelectedSkip(null);
